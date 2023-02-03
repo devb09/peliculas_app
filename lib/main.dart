@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_app/router/routes_app.dart';
 import 'package:peliculas_app/screens/home.screen.dart';
+import 'package:peliculas_app/styles/theme.dart';
 
 void main() => runApp(const MyApp());
 
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       initialRoute: RoutesApp.initialRoute,
       routes: RoutesApp.getRoutes(),
+      theme: AppThemeCustom.lightTheme,
     );
   }
 }
