@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas_app/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({Key? key}) : super(key: key);
@@ -12,8 +13,15 @@ class DetailsScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          _CustomAppBar(),
-          SliverList(delegate: SliverChildListDelegate([_PosterAndTitle()]))
+          const _CustomAppBar(),
+          SliverList(
+              delegate: SliverChildListDelegate(const [
+            _PosterAndTitle(),
+            _OverView(),
+            _OverView(),
+            _OverView(),
+            CastingCard()
+          ])),
         ],
       ),
     );
@@ -86,13 +94,28 @@ class _PosterAndTitle extends StatelessWidget {
                 children: [
                   const Icon(Icons.star_outline, size: 15, color: Colors.grey),
                   const SizedBox(width: 5),
-                  Text('movie.coreAverage',
-                      style: textTheme.caption)
+                  Text('movie.coreAverage', style: textTheme.caption)
                 ],
               )
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class _OverView extends StatelessWidget {
+  const _OverView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      child: Text(
+        'Magna do mollit eu proident et amet. Pariatur velit voluptate nostrud aliqua commodo labore qui. Dolor elit sit excepteur deserunt. Enim Lorem nostrud aute id enim commodo exercitation est adipisicing. Excepteur proident ipsum non consequat ea culpa. Proident commodo ipsum laboris dolore in aliquip laborum cupidatat quis mollit. Deserunt duis dolor elit pariatur nostrud Lorem minim velit.',
+        textAlign: TextAlign.justify,
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     );
   }
