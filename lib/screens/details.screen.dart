@@ -42,6 +42,7 @@ class _CustomAppBar extends StatelessWidget {
         centerTitle: true,
         titlePadding: const EdgeInsets.all(0),
         title: Container(
+            padding: const EdgeInsets.only(bottom: 10),
             color: Colors.black26,
             width: double.infinity,
             alignment: Alignment.bottomCenter,
