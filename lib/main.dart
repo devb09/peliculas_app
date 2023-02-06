@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_app/providers/movies_provider.dart';
+import 'package:peliculas_app/providers/popular_movies_provider.dart';
 import 'package:peliculas_app/router/routes_app.dart';
 import 'package:peliculas_app/screens/home.screen.dart';
 import 'package:peliculas_app/styles/theme.dart';
@@ -16,6 +17,10 @@ class AppState extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => MoviesProvider(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => PopularMoviesProvider(),
           lazy: false,
         )
       ],

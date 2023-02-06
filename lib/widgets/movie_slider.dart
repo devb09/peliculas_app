@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas_app/models/movie.dart';
 
 class MovieSlider extends StatelessWidget {
-  const MovieSlider({super.key});
+  final List<Movie> movies;
+
+  const MovieSlider({super.key, required this.movies});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       height: 250,
-      color: Colors.red,
+      // color: Colors.red,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -22,9 +25,11 @@ class MovieSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 20,
-              itemBuilder: (BuildContext context, int index) =>
-                  const _MoviePoster(),
+              itemCount: movies.length,
+              itemBuilder: (BuildContext context, int index) {                
+                final movie = movies[index];
+                return _MoviePoster(movieData: movie);
+              },
             ),
           ),
         ],
@@ -34,8 +39,10 @@ class MovieSlider extends StatelessWidget {
 }
 
 class _MoviePoster extends StatelessWidget {
+  final Movie movieData;
   const _MoviePoster({
     Key? key,
+    required this.movieData,
   }) : super(key: key);
 
   @override
@@ -43,7 +50,7 @@ class _MoviePoster extends StatelessWidget {
     return Container(
       width: 130,
       height: 190,
-      color: Colors.amber,
+      // color: Colors.amber,
       margin: EdgeInsets.all(10),
       child: Column(
         children: [
@@ -52,9 +59,9 @@ class _MoviePoster extends StatelessWidget {
                 arguments: 'movie-instance'),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
-              child: const FadeInImage(
-                placeholder: AssetImage('assets/no-image.jpg'),
-                image: NetworkImage('https://via.placeholder.com/300x400'),
+              child: FadeInImage(
+                placeholder: const AssetImage('assets/no-image.jpg'),
+                image: NetworkImage(movieData.fullPosterImg),
                 width: 130,
                 height: 160,
                 fit: BoxFit.cover,
@@ -64,8 +71,8 @@ class _MoviePoster extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            'Harry Potter y las reliquias de la muerte',
+          Text(
+            movieData.originalTitle,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             textAlign: TextAlign.center,

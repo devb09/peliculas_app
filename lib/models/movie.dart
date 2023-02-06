@@ -34,42 +34,47 @@ class Movie {
   double voteAverage;
   int voteCount;
 
+  get fullPosterImg {
+    if (this.posterPath == null) return 'https://i.stack.imgur.com/GNhxO.png';
+    return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
+  }
+
   factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-        adult           : json["adult"],
-        backdropPath    : json["backdrop_path"],
-        genreIds        : List<int>.from(json["genre_ids"].map((x) => x)),
-        id              : json["id"],
+        adult: json["adult"],
+        backdropPath: json["backdrop_path"],
+        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
+        id: json["id"],
         originalLanguage: json["original_language"],
-        originalTitle   : json["original_title"],
-        overview        : json["overview"],
-        popularity      : json["popularity"]?.toDouble(),
-        posterPath      : json["poster_path"],
-        releaseDate     : json["release_date"],
-        title           : json["title"],
-        video           : json["video"],
-        voteAverage     : json["vote_average"]?.toDouble(),
-        voteCount       : json["vote_count"],
+        originalTitle: json["original_title"],
+        overview: json["overview"],
+        popularity: json["popularity"]?.toDouble(),
+        posterPath: json["poster_path"],
+        releaseDate: json["release_date"],
+        title: json["title"],
+        video: json["video"],
+        voteAverage: json["vote_average"]?.toDouble(),
+        voteCount: json["vote_count"],
       );
 
 // El mapa es si se va a enviar a un API
   Map<String, dynamic> toJson() => {
-        "adult"         : adult,
-        "backdrop_path" : backdropPath,
-        "genre_ids"     : List<dynamic>.from(genreIds.map((x) => x)),
-        "id"            : id,
+        "adult": adult,
+        "backdrop_path": backdropPath,
+        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
+        "id": id,
         "original_language": originalLanguage,
         "original_title": originalTitle,
-        "overview"      : overview,
-        "popularity"    : popularity,
-        "poster_path"   : posterPath,
-        "release_date"  : releaseDate,
-        "title"         : title,
-        "video"         : video,
-        "vote_average"  : voteAverage,
-        "vote_count"    : voteCount,
+        "overview": overview,
+        "popularity": popularity,
+        "poster_path": posterPath,
+        "release_date": releaseDate,
+        "title": title,
+        "video": video,
+        "vote_average": voteAverage,
+        "vote_count": voteCount,
       };
 }
