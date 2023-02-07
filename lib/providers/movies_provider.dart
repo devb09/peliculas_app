@@ -13,20 +13,31 @@ class MoviesProvider extends ChangeNotifier {
   final double _page = 1;
 
   List<Movie> onDisplayMovies = [];
+  List<Movie> popularMovies = [];
 
   MoviesProvider() {
-    print('Movies Provider initialized');
-
-    this.getPlayinNowMovies();
+    getPlayinNowMovies();
+    getPopularMovies();
   }
 
   getPlayinNowMovies() async {
     var url = Uri.https(_baseUrlBase, '3/movie/now_playing',
         {'api_key': _apiKey, 'language': _language, 'page': '$_page'});
     final response = await http.get(url);
-    final nowPlayingResponse = NowPlayingResponse.fromRawJson(response.body);
-    this.onDisplayMovies = nowPlayingResponse.results;
+    final movieResponse = NowPlayingResponse.fromRawJson(response.body);
+    onDisplayMovies = movieResponse.results;
 
+    notifyListeners();
+  }
+
+  getPopularMovies() async {
+    var url = Uri.https(_baseUrlBase, '3/movie/popular',
+        {'api_key': _apiKey, 'language': _language, 'page': '$_page'});
+    final response = await http.get(url);
+    final movieResponse = NowPlayingResponse.fromRawJson(response.body);
+    popularMovies = [...popularMovies, ...movieResponse.results];
+    print('popularMovies');
+    print(popularMovies);
     notifyListeners();
   }
 }
