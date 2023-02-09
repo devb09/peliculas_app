@@ -1,11 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_app/models/movie.dart';
+import 'package:peliculas_app/providers/movies_provider.dart';
 
-class MovieSlider extends StatelessWidget {
+class MovieSlider extends StatefulWidget {
   final List<Movie> movies;
   final String? title;
 
   const MovieSlider({super.key, required this.movies, this.title});
+
+  @override
+  State<MovieSlider> createState() => _MovieSliderState();
+}
+
+class _MovieSliderState extends State<MovieSlider> {
+
+  final ScrollController _scrollController = new ScrollController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 500){
+        print('petition');
+      }
+     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +46,22 @@ class MovieSlider extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (this.title != null)
+          if (this.widget.title != null)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
-                title!,
+                widget.title!,
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
           Expanded(
             child: ListView.builder(
+              controller: _scrollController,
               scrollDirection: Axis.horizontal,
-              itemCount: movies.length,
+              itemCount: widget.movies.length,
               itemBuilder: (BuildContext context, int index) {
-                final movie = movies[index];
+                final movie = widget.movies[index];
                 return _MoviePoster(movieData: movie);
               },
             ),
