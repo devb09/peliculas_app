@@ -5,15 +5,16 @@ import 'package:peliculas_app/providers/movies_provider.dart';
 class MovieSlider extends StatefulWidget {
   final List<Movie> movies;
   final String? title;
+  final Function onNextPage;
 
-  const MovieSlider({super.key, required this.movies, this.title});
+  const MovieSlider(
+      {super.key, required this.movies, this.title, required this.onNextPage});
 
   @override
   State<MovieSlider> createState() => _MovieSliderState();
 }
 
 class _MovieSliderState extends State<MovieSlider> {
-
   final ScrollController _scrollController = new ScrollController();
 
   @override
@@ -22,17 +23,16 @@ class _MovieSliderState extends State<MovieSlider> {
     super.initState();
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 500){
-        print('petition');
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 500) {
+        widget.onNextPage();
       }
-     });
+    });
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-
-
 
     super.dispose();
   }
