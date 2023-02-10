@@ -52,7 +52,7 @@ class _MovieSliderState extends State<MovieSlider> {
               child: Text(
                 widget.title!,
                 style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Color.fromRGBO(236, 28, 28, 0.753)),
               ),
             ),
           Expanded(
