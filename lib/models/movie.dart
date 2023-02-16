@@ -39,6 +39,11 @@ class Movie {
     return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
   }
 
+  get fullBackdropPath {
+    if (this.posterPath == null) return 'https://i.stack.imgur.com/GNhxO.png';
+    return 'https://image.tmdb.org/t/p/w500${this.backdropPath}';
+  }
+
   factory Movie.fromRawJson(String str) => Movie.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
