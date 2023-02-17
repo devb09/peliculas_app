@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:peliculas_app/models/credits.dart';
 import 'package:peliculas_app/models/movie.dart';
 import 'package:peliculas_app/models/now_playing_response.dart';
 
@@ -11,6 +12,8 @@ class MoviesProvider extends ChangeNotifier {
   List<Movie> onDisplayMovies = [];
   List<Movie> popularMovies = [];
   int popularPage = 0;
+
+  Map<int,List<Cast>> moviesCast = {};
 
   MoviesProvider() {
     getPlayinNowMovies();
@@ -38,5 +41,18 @@ class MoviesProvider extends ChangeNotifier {
     final movieResponse = NowPlayingResponse.fromRawJson(jsonData);
     popularMovies = [...popularMovies, ...movieResponse.results];
     notifyListeners();
+  }
+
+  Future<List<Cast>> getMovieCast(int movieId) async {
+
+    if(moviesCast.containsKey(movieId)) return moviesCast[movieId]!;
+
+    print('pidiendo data al server');
+
+    final jsonData = await _getJsonData('/3/movie/$movieId/credits');
+    final creditsResponse = CreditsResponse.fromRawJson(jsonData);
+
+    moviesCast[movieId] = creditsResponse.cast;
+    return creditsResponse.cast;
   }
 }
