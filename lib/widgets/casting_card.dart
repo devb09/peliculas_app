@@ -52,7 +52,7 @@ class _CastCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 10),
       width: 100,
       height: 100,
-      color: Colors.amberAccent,
+      // color: Colors.amberAccent,
       child: Column(
         children: [
           ClipRRect(
