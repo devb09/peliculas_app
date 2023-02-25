@@ -29,7 +29,6 @@ class CastingCard extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 20),
             width: double.infinity,
             height: 180,
-            color: Colors.green,
             child: ListView.builder(
               itemCount: cast.length,
               scrollDirection: Axis.horizontal,
