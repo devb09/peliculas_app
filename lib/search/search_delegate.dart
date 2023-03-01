@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class MovieSearchDelegate extends SearchDelegate{
+
+  @override
+  String get searchFieldLabel => 'Buscar película';
+
   @override
   List<Widget>? buildActions(BuildContext context) {
     // TODO: implement buildActions
@@ -19,7 +23,7 @@ class MovieSearchDelegate extends SearchDelegate{
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text('BuildSuggestions');
+    return Text('BuildSuggestions $query');
   }
 
 }
