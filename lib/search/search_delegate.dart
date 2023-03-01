@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 
-class MovieSearchDelegate extends SearchDelegate{
-
+class MovieSearchDelegate extends SearchDelegate {
   @override
   String get searchFieldLabel => 'Buscar película';
 
   @override
   List<Widget>? buildActions(BuildContext context) {
     // TODO: implement buildActions
-    return [Text('BuildACtions')];
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: Icon(Icons.clear))
+    ];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
-    return Text('BuildLeading');
+    return IconButton(onPressed: () {
+      close(context, null);
+    }, icon: Icon(Icons.arrow_back));
   }
 
   @override
@@ -25,5 +32,4 @@ class MovieSearchDelegate extends SearchDelegate{
   Widget buildSuggestions(BuildContext context) {
     return Text('BuildSuggestions $query');
   }
-
 }
