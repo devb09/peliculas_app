@@ -29,7 +29,10 @@ class CardSwiper extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Text(
               'En cartelera'.toUpperCase(),
-              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Color.fromRGBO(236, 28, 28, 0.753)),
+              style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Color.fromRGBO(236, 28, 28, 0.753)),
             ),
           ),
           Swiper(
@@ -40,15 +43,19 @@ class CardSwiper extends StatelessWidget {
             itemHeight: size.height * 0.4,
             itemBuilder: ((_, index) {
               final movie = movies[index];
+              movie.heroID = 'swiper-${movie.id}';
               return GestureDetector(
-                onTap: () => Navigator.pushNamed(context, '/details',
-                    arguments: movie),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: FadeInImage(
-                    placeholder: const AssetImage('assets/no-image.jpg'),
-                    image: NetworkImage(movie.fullPosterImg),
-                    fit: BoxFit.fill,
+                onTap: () =>
+                    Navigator.pushNamed(context, '/details', arguments: movie),
+                child: Hero(
+                  tag: movie.heroID!,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: FadeInImage(
+                      placeholder: const AssetImage('assets/no-image.jpg'),
+                      image: NetworkImage(movie.fullPosterImg),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
               );

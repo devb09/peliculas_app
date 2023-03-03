@@ -51,8 +51,10 @@ class _MovieSliderState extends State<MovieSlider> {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 widget.title!,
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold,color: Color.fromRGBO(236, 28, 28, 0.753)),
+                style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(236, 28, 28, 0.753)),
               ),
             ),
           Expanded(
@@ -62,7 +64,10 @@ class _MovieSliderState extends State<MovieSlider> {
               itemCount: widget.movies.length,
               itemBuilder: (BuildContext context, int index) {
                 final movie = widget.movies[index];
-                return _MoviePoster(movieData: movie);
+                return _MoviePoster(
+                    movieData: movie,
+                    heroID:
+                        '${widget.title}-${index}-${widget.movies[index].id}');
               },
             ),
           ),
@@ -74,13 +79,16 @@ class _MovieSliderState extends State<MovieSlider> {
 
 class _MoviePoster extends StatelessWidget {
   final Movie movieData;
+  final String heroID;
   const _MoviePoster({
     Key? key,
     required this.movieData,
+    required this.heroID,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    movieData.heroID = heroID;
     return Container(
       width: 130,
       height: 190,
@@ -89,16 +97,19 @@ class _MoviePoster extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/details',
-                arguments: movieData),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                placeholder: const AssetImage('assets/no-image.jpg'),
-                image: NetworkImage(movieData.fullPosterImg),
-                width: 130,
-                height: 160,
-                fit: BoxFit.cover,
+            onTap: () =>
+                Navigator.pushNamed(context, '/details', arguments: movieData),
+            child: Hero(
+              tag: movieData.heroID!,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                  placeholder: const AssetImage('assets/no-image.jpg'),
+                  image: NetworkImage(movieData.fullPosterImg),
+                  width: 130,
+                  height: 160,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
