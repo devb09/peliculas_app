@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:peliculas_app/helpers/debouncer.dart';
 import 'package:peliculas_app/models/credits.dart';
 import 'package:peliculas_app/models/movie.dart';
 import 'package:peliculas_app/models/now_playing_response.dart';
@@ -20,6 +23,13 @@ class MoviesProvider extends ChangeNotifier {
     getPlayinNowMovies();
     getPopularMovies();
   }
+
+  final debouncer = Debouncer(duration: Duration(milliseconds: 500));
+
+  final StreamController<List<Movie>> _sugestionsStreamControoler =
+      new StreamController.broadcast();
+  Stream<List<Movie>> get suggestionsStream =>
+      _sugestionsStreamControoler.stream;
 
   Future<String> _getJsonData(String endpoint, {page = 1}) async {
     final url = Uri.https(_baseUrlBase, endpoint,
@@ -63,5 +73,9 @@ class MoviesProvider extends ChangeNotifier {
     final searchResponse = SearchMovieResponse.fromRawJson(response.body);
 
     return searchResponse.results;
+  }
+
+  void getSuggestionsByQuery( String searchTem){
+    
   }
 }
